@@ -24,7 +24,6 @@ const StyledHeader = styled.h1`
 `;
 
 export const Home = () => {
-  console.log("Render");
   return (
     <Container>
       <StyledHeader>Search Devs</StyledHeader>
