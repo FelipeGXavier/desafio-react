@@ -14,6 +14,12 @@ const StyledInput = styled.input`
   letter-spacing: normal;
 `;
 
-export const InputSearch = ({ placeholder }) => {
-  return <StyledInput type="search" placeholder={placeholder}></StyledInput>;
+export const InputSearch = ({ placeholder, onChange }) => {
+  return (
+    <StyledInput
+      type="search"
+      onChange={onChange}
+      placeholder={placeholder}
+    ></StyledInput>
+  );
 };

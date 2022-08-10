@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../components/button/button";
 import { InputSearch } from "../components/input/input";
@@ -24,12 +25,29 @@ const StyledHeader = styled.h1`
 `;
 
 export const Home = () => {
+  const [username, setUsername] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/profile/${username}`);
+  };
+
   return (
     <Container>
       <StyledHeader>Search Devs</StyledHeader>
       <HorizontalAlign>
-        <InputSearch placeholder="Type the username here..."></InputSearch>
-        <Button color="#ebeced" bgColor="#3b4252" icon={AiOutlineSearch}>
+        <InputSearch
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Type the username here..."
+        ></InputSearch>
+        <Button
+          onClick={handleSubmit}
+          color="#ebeced"
+          bgColor="#3b4252"
+          icon={AiOutlineSearch}
+        >
           Buscar
         </Button>
       </HorizontalAlign>
