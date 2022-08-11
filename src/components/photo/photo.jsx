@@ -3,6 +3,7 @@ import styled from "styled-components";
 const StyledImage = styled.img`
   width: 280px;
   height: 280px;
+  border-radius: 4px;
 `;
 
 export const Photo = ({ src, alt = "User photo" }) => {

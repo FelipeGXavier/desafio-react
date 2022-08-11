@@ -8,6 +8,7 @@ import {
   AiOutlineLink,
   AiOutlineTwitter,
   AiOutlinePushpin,
+  AiOutlineCode,
 } from "react-icons/ai";
 import { Button } from "../components/button/button";
 import { Photo } from "../components/photo/photo";
@@ -84,8 +85,16 @@ export const UserInfo = ({
   repositories = "--",
   followers = "--",
   following = "--",
+  bio = "",
+  twitter = "--",
+  email = "--",
+  blog = "--",
 }) => {
   const navigate = useNavigate();
+
+  const formatNullInformation = (info) => {
+    return info || "--";
+  };
 
   const UserInfo = () => {
     return (
@@ -93,14 +102,9 @@ export const UserInfo = ({
         <PhotoWrapper>
           <Photo src={photoSrc}></Photo>
         </PhotoWrapper>
-        <StyledHeader>Developer's full name</StyledHeader>
-        <StyledUsername>@{userName}</StyledUsername>
-        <StyledDescription>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet ex
-          enim nam deserunt ea voluptates, tempora unde officia repellat
-          adipisci perspiciatis animi iste, ad ipsa alias. Aliquam sequi
-          officiis veniam.
-        </StyledDescription>
+        <StyledHeader>{userName}</StyledHeader>
+        <StyledUsername>@{userLogin}</StyledUsername>
+        <StyledDescription>{bio}</StyledDescription>
         <StyledStatsWrapper>
           <StyledUserStats>
             <AiOutlineUser size={20}></AiOutlineUser> {followers} followers
@@ -109,7 +113,8 @@ export const UserInfo = ({
             <AiOutlineHeart size={20}></AiOutlineHeart> {following} following
           </StyledUserStats>
           <StyledUserStats>
-            <AiOutlineStar size={20}></AiOutlineStar> {stars} stars
+            <AiOutlineCode size={20}></AiOutlineCode> {repositories}{" "}
+            repositories
           </StyledUserStats>
         </StyledStatsWrapper>
       </>
@@ -121,20 +126,23 @@ export const UserInfo = ({
       <>
         <StyledProfileInfo>
           <AiOutlineBank size={32}></AiOutlineBank>
-          {organization}
+          {formatNullInformation(organization)}
         </StyledProfileInfo>
         <StyledProfileInfo>
           <AiOutlinePushpin size={32}></AiOutlinePushpin>
           {localization}
         </StyledProfileInfo>
         <StyledProfileInfo>
-          <AiOutlineMail size={32}></AiOutlineMail>email
+          <AiOutlineMail size={32}></AiOutlineMail>
+          {formatNullInformation(email)}
         </StyledProfileInfo>
         <StyledProfileInfo>
-          <AiOutlineLink size={32}></AiOutlineLink>www.site.com
+          <AiOutlineLink size={32}></AiOutlineLink>
+          {formatNullInformation(blog)}
         </StyledProfileInfo>
         <StyledProfileInfo>
-          <AiOutlineTwitter size={32}></AiOutlineTwitter>@twitter
+          <AiOutlineTwitter size={32}></AiOutlineTwitter>
+          {formatNullInformation(twitter)}
         </StyledProfileInfo>
       </>
     );

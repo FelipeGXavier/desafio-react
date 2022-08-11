@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../components/button/button";
 import { InputSearch } from "../components/input/input";
@@ -10,10 +10,12 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 const HorizontalAlign = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 `;
 
@@ -24,10 +26,21 @@ const StyledHeader = styled.h1`
   text-align: center;
 `;
 
+const StyledAlert = styled.span`
+  background-color: #ff4444;
+  text-align: center;
+  width: 250px;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #ffff;
+`;
+
 export const Home = () => {
   const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +50,7 @@ export const Home = () => {
   return (
     <Container>
       <StyledHeader>Search Devs</StyledHeader>
+      {location.state && <StyledAlert>{location.state.message}</StyledAlert>}
       <HorizontalAlign>
         <InputSearch
           onChange={(e) => setUsername(e.target.value)}

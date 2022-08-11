@@ -12,6 +12,7 @@ export const Profile = () => {
       const response = await getGithubProfile(username);
 
       if (response == null) {
+        navigate("/", { state: { message: "Usuário não encontrado" } });
         return;
       }
 
@@ -24,6 +25,10 @@ export const Profile = () => {
         public_repos,
         followers,
         following,
+        twitter_username,
+        bio,
+        email,
+        blog,
       } = response;
 
       const formattedResponse = {
@@ -35,12 +40,16 @@ export const Profile = () => {
         repos: public_repos,
         followers: followers,
         following: following,
+        twitter: twitter_username,
+        bio: bio,
+        email: email,
+        blog: blog,
       };
 
       setUserProfile(formattedResponse);
     };
     fetchUserProfile();
-  });
+  }, [username, navigate]);
   return (
     <>
       {userProfile != null && (
@@ -53,6 +62,10 @@ export const Profile = () => {
           userName={userProfile.userName}
           photoSrc={userProfile.photoSrc}
           following={userProfile.following}
+          twitter={userProfile.twitter}
+          bio={userProfile.bio}
+          email={userProfile.email}
+          blog={userProfile.blog}
         ></UserInfo>
       )}
     </>
