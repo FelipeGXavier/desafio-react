@@ -12,3 +12,12 @@ export const getGithubProfile = async (username) => {
         return null
     }
 }
+
+export const getReposFromUser = async (username) => {
+    try {
+        const repoData = await api.get(`/users/${username}/repos`)
+        return repoData.data;
+    } catch (err) {
+        return null;
+    }
+}

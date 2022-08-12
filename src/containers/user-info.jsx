@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {
   AiOutlineUser,
   AiOutlineHeart,
-  AiOutlineStar,
   AiOutlineBank,
   AiOutlineMail,
   AiOutlineLink,
@@ -15,9 +14,9 @@ import { Photo } from "../components/photo/photo";
 import { useNavigate } from "react-router-dom";
 
 const InfoWrapper = styled.div`
-  max-width: 500px;
+  width: 500px;
   background-color: #3b4252;
-  height: 100vh;
+  margin-right: 25px;
   padding: 25px;
   color: #cfcfcf;
 `;
@@ -81,7 +80,6 @@ export const UserInfo = ({
   userLogin = "--",
   organization = "--",
   localization = "--",
-  stars = "--",
   repositories = "--",
   followers = "--",
   following = "--",

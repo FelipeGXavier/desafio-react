@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Repositories } from "../containers/repositories";
 import { UserInfo } from "../containers/user-info";
-import { getGithubProfile } from "../services/api";
+import { getGithubProfile, getReposFromUser } from "../services/api";
+import styled from "styled-components";
+
+const StyledProfileContainer = styled.div`
+  display: flex;
+`;
 
 export const Profile = () => {
   const { username } = useParams();
   const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState(null);
+  const [userRepos, setUserRepos] = useState([]);
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       const response = await getGithubProfile(username);
@@ -48,10 +56,29 @@ export const Profile = () => {
 
       setUserProfile(formattedResponse);
     };
+
+    const fetchUserRepos = async () => {
+      const response = await getReposFromUser(username);
+      const formattedResponse = [];
+      console.log(response);
+      response.map((item) => {
+        const { name, description, html_url, stargazers_count, updated_at } =
+          item;
+        return formattedResponse.push({
+          repositoryName: name,
+          repositoryLink: html_url,
+          description: description,
+          lastUpdate: updated_at,
+          stars: stargazers_count,
+        });
+      });
+      setUserRepos(formattedResponse);
+    };
     fetchUserProfile();
+    fetchUserRepos();
   }, [username, navigate]);
   return (
-    <>
+    <StyledProfileContainer>
       {userProfile != null && (
         <UserInfo
           followers={userProfile.followers}
@@ -68,6 +95,9 @@ export const Profile = () => {
           blog={userProfile.blog}
         ></UserInfo>
       )}
-    </>
+      <div>
+        <Repositories repositories={userRepos}></Repositories>
+      </div>
+    </StyledProfileContainer>
   );
 };
